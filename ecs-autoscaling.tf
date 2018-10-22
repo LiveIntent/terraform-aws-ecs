@@ -10,28 +10,13 @@ resource "aws_autoscaling_group" "ecs-cluster" {
   health_check_grace_period = "${var.health_check_grace_period}"
   termination_policies = ["Default"]    # Default policy is quite clever one, so we're good to go with
 
-  tag {
-    key = "Env"
-    value = "${var.environment_name}"
-    propagate_at_launch = true
-  }
-
-  tag {
-    key = "Name"
-    value =  "ECS ${var.cluster_name}"
-    propagate_at_launch = true
-  }
-
-  tag {
-    key = "prometheus_node_exporter"
-    value =  "${var.nodeexporter_port}"
-    propagate_at_launch = true
-  }
-
-  tag {
-    key = "prometheus_cAdvisor"
-    value =  "${var.cadvisor_port}"
-    propagate_at_launch = true
-  }
-
+  tags = ["${merge(
+    list(
+      map("key", "Env", "value", "${var.environment_name}", "propagate_at_launch", true),
+      map("key", "Name", "value", "ECS ${var.cluster_name}", "propagate_at_launch", true),
+      map("key", "prometheus_node_exporter", "value", "${var.nodeexporter_port}", "propagate_at_launch", true),
+      map("key", "prometheus_cAdvisor", "value", "${var.nodeexporter_port}", "propagate_at_launch", true)
+    ),
+    var.tags)
+  }"]
 }

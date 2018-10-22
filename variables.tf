@@ -155,8 +155,13 @@ variable "nodeexporter_port" {
     default = 9100
     description = "My ugly and temporary fix to get additional tags"
 }
+
 variable "cadvisor_port" {
     default = 9101
     description = "My ugly and temporary fix to get additional tags"
 }
 
+variable "tags" {
+  type = list
+  default = []
+}
