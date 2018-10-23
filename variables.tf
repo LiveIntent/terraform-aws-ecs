@@ -162,6 +162,6 @@ variable "cadvisor_port" {
 }
 
 variable "tags" {
-  type = list
+  type = "list"
   default = []
 }
