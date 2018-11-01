@@ -15,7 +15,7 @@ resource "aws_autoscaling_group" "ecs-cluster" {
       map("key", "Env", "value", "${var.environment_name}", "propagate_at_launch", true),
       map("key", "Name", "value", "ECS ${var.cluster_name}", "propagate_at_launch", true),
       map("key", "prometheus_node_exporter", "value", "${var.nodeexporter_port}", "propagate_at_launch", true),
-      map("key", "prometheus_cAdvisor", "value", "${var.nodeexporter_port}", "propagate_at_launch", true)
+      map("key", "prometheus_cAdvisor", "value", "${var.cadvisor_port}", "propagate_at_launch", true)
     ),
     var.tags)
   }"]
